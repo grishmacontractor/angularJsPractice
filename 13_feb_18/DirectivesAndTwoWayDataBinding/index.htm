@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en-us" ng-app="myApp">
+    <head>
+        <title>Learn and Understand AngularJS</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta charset="UTF-8">
+
+        <!-- load bootstrap and fontawesome via CDN -->
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+        <style>
+            html, body, input, select, textarea
+            {
+                font-size: 1.05em;
+            }
+        </style>
+        
+        <!-- load angular via CDN -->
+        <script src="//code.angularjs.org/1.3.0-rc.1/angular.min.js"></script>
+        <script src="https://code.angularjs.org/1.3.0-rc.1/angular-messages.min.js"></script>
+        <script src="app.js"></script>
+    </head>
+    <body>
+
+        <header>
+			<nav class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/">AngularJS</a>
+				</div>
+
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+				</ul>
+			</div>
+			</nav>
+		</header>
+
+        <div class="container">
+
+            <div ng-controller="mainController">
+            
+                <div>
+
+
+                    <form name="userForm">
+                    <input list="browsers" name="browser" ng-model="handle" >
+                    <datalist id="browsers">
+                        <option value="angular_intro">
+                        <option value="angular_expressions">
+                        <option value="angular_modules">
+                        <option value="angular_directives">
+                        <option value="angular_databinding">
+                    </datalist>
+                        <input type="reset" value="Clear">
+                    </form>
+                </div>
+                
+                <hr />
+                <a target="_blank" href='https://www.w3schools.com/angular/{{ lowercasehandle() }}.asp'>https://www.w3schools.com/angular/{{ lowercasehandle() }}.asp</a>
+                
+            </div>
+            
+		</div>
+
+    </body>
+</html>
