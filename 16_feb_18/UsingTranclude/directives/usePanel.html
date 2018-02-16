@@ -1,0 +1,14 @@
+<section>
+    <div class="panel panel-primary">
+        Plant Details
+        <label>PlantName : {{ plantObject.name }}</label>
+    </div>
+    <div class="panel panel-success">
+        {{ getPlantDetailsFunction({ aplant: plantObject }) }}
+    </div>
+    <div class="panel panel-danger">
+        danger...
+    </div>
+    <small><ng-transclude></ng-transclude></small>
+    <small ng-transclude></small>
+</section>
