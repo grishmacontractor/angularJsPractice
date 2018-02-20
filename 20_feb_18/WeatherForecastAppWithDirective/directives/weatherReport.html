@@ -1,0 +1,28 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+
+
+        <h3 class="panel-title"> {{ convertToDate1({abc: weatherDay1.dt}) | date: dateFormat1 }}</h3>
+    </div>
+    <div class="panel-body">
+
+        Daytime temperature: {{ convertToStandard1( { daytimeTemp: weatherDay1.main['temp']} ) }}
+
+    </div>
+</div>
+<!--
+ weatherDay1: "=",
+            convertToStandard1: "&",
+            convertToDate1: "&",
+            dateFormat1: "@"
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"> {{ convertToDate(w.dt) | date:'MMM d, y' }}</h3>
+    </div>
+    <div class="panel-body">
+        Daytime temperature: {{ convertToFahrenheit(w.main["temp"]) }}
+    </div>
+</div>
+-->
