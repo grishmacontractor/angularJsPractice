@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="app.js"></script>
+</head>
+
+<body>
+
+    <div ng-app="myApp" ng-controller="formCtrl">
+        <form novalidate>
+            Full Name:<br>
+            <input type="text" ng-model="fullName"><br>
+            Gender:<br>
+            <input type="radio" ng-model="gender.name" value="Male">Male
+            <input type="radio" ng-model="gender.name" value="Female">Female
+            <br><br>
+            <button ng-click="display()">Display</button>
+        </form>
+        <p>{{ info }}</p>
+        <table ng-repeat="person in data" border="1" width="75%">
+            <tr>
+                <td width="25%">{{person.fullName}}</td>
+                <td width="25%">{{person.gender}}</td>
+                <td width="25%"><a href=#  ng-click="remove(person,$index)">Delete</a></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
