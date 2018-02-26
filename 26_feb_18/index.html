@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="app.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <div ng-app="myApp" ng-controller="formCtrl">
+        <div>
+
+
+
+
+            <!-- CODE TO DISPLAY RECORDS FROM ARRAY -->
+
+
+
+            <h1 class="h5" ng-show="data.length">List Of Person Details</h1>
+            <table  class="table" width="75%" ng-show="data.length">
+                <tr>
+                    <td>Sr.No</td>
+                    <td >Full Name</td>
+                    <td >Gender</td>
+                    <td >Hobbies</td>
+                    <td >Qualification</td>
+                    <td >Date</td>
+                    <td colspan="2" style="text-align: center">Operations</td>
+                </tr>
+
+                <tr ng-repeat="person in data">
+                    <td>{{$index + 1}}</td>
+                    <td >{{person.fullName}}</td>
+                    <td >{{person.gender}}</td>
+                    <td>
+                        <span ng-repeat="h in person.hobbies" ng-if="h.selected"> {{ h.name }} |</span>
+                    </td>
+                    <td>
+                        {{person.qualification}}
+                    </td>
+                    <td>
+                        {{ person.today | date :  "dd-MM-yyyy" }}
+                    </td>
+                    <td><a href=#  ng-click="remove($index)" style="text-decoration: none">&#128465;Delete</a></td>
+                    <td ><a href=# ng-click="editRec($index)" style="text-decoration: none">&#9998;Edit</a></td>
+                </tr>
+            </table>
+
+
+
+
+
+           <!-- CODE TO DISPLAY FORM -->
+
+
+
+            <div align="center">
+
+                <h1 class="h5" ng-show="goEdit">Edit Person Details</h1>
+                <h1 class="h5" ng-show="!goEdit">Add Person Details</h1>
+                <div class="px-2 badge badge-success"> {{ info }} </div>
+                <form name="MyForm" >
+                    <table  class="table">
+                        <tr>
+                            <td>Full Name:</td>
+                            <td>:</td>
+                            <td>
+                                <input placeholder="Enter Full Name" class="form-control" pattern="[A-Za-z]*" type="text" ng-model="fullName" name="fullName" required ng-change="changeStatus()" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Gender</td>
+                            <td>:</td>
+                            <td>
+                                <input class="radio" type="radio" ng-model="gender.name" value="Male">Male <br/>
+                                <input class="radio" type="radio" ng-model="gender.name" value="Female">Female
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Hobbies</td>
+                            <td>:</td>
+                            <td>
+                                <!-- assigning values to checkbox -->
+                                <span ng-repeat = "a in hobbies">
+                                    <input class="checkbox-inline" id={{a.id}}  type="checkbox" ng-model = "a.selected"  />
+                                    {{a.name}}
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Highest Qualification</td>
+                            <td>:</td>
+                            <td>
+                                <select class="form-control" required ng-model="qualification"  ng-change="changeStatus()" >
+                                    <option value="">Select</option>
+                                    <option value="SSC">SSC</option>
+                                    <option value="HSC">HSC</option>
+                                    <option value="Graduate">Graduate</option>
+                                    <option value="Masters">Masters</option>
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Date</td>
+                            <td>:</td>
+                            <td>
+                               <input type="date" ng-model="today">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="3">
+                                <button type="submit" ng-disabled="status" class="btn btn-primary" ng-click="add_data()"  ng-show="!goEdit">Add</button>
+                                <input type="hidden" ng-model="index" ng-show="goEdit"/>
+                                <button class="btn btn-primary" ng-disabled="editstatus" ng-click="updateData()" id="updateButton" ng-show="goEdit"/>Edit</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script>
+
+        var myApp = angular.module('myApp', ['ngRoute']);
+        myApp.config(function ($provide) {
+
+            $provide.decorator('$exceptionHandler', function ($delegate) {
+
+                return function (exception, cause) {
+                    $delegate(exception, cause);
+
+                    alert('Error occurred! Please contact admin.'+ exception);
+                    alert('Error occurred! cause is .'+ cause);
+                };
+            });
+        });
+
+        myApp.controller('formCtrl', function ($scope, $window) {
+          //creating array to assign values to checkbox
+            $scope.hobbies = [{
+                hid: 1,
+                name: 'Reading',
+                selected: true
+            }, {
+                hid: 2,
+                name: 'Travelling',
+                selected: false
+            }, {
+                hid: 3,
+                name: 'Photography',
+                selected: false
+            }];
+
+            //accessing selected values of checkbox.
+            $scope.GetValue = function () {
+                var message = "";
+                var msg = [];
+                for (var i = 0; i < $scope.hobbies.length; i++) {
+                    var sel = $scope.hobbies[i].selected
+                    if (sel) {
+                        var hid = $scope.hobbies[i].hid;
+                        var name = $scope.hobbies[i].name;
+                        var tempObj = {hid : hid, name: name, selected : sel};
+                        msg.push(tempObj);
+                        message += "ID: " + hid + " HobbyName: " + name + "\n";
+                    }
+                }
+                $window.alert(message);
+                console.log(msg);
+            }
+        });
+
+
+
+    </script>
+</head>
+
+<body>
+<div class="container">
+    <div ng-app="myApp" ng-controller="formCtrl">
+        <!-- assigning values to checkbox -->
+        <span ng-repeat = "a in hobbies">
+            <input id={{a.id}} type="checkbox" ng-model = "a.selected" />
+            {{a.name}}
+        </span>
+        <input type="button" value="Get" ng-click="GetValue()" />
+    </div>
+</div>
+</body>
+</html>
