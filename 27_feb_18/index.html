@@ -1,0 +1,237 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- bootstrap-libraries -->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
+    <!--CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!--JQUERY-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <!--BOOTSTRAP-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+    <!-- angular-libraries-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+
+    <!-- angular-validation libraries-->
+    <script src="../node_modules/angular-validation/dist/angular-validation.js"></script>
+    <script src="../node_modules/angular-validation/dist/angular-validation-rule.js"></script>
+
+    <!--user defined js libs -->
+    <script src="app.js"></script>
+
+    <!--user defined css -->
+    <link rel="stylesheet" type="text/css" href="app.css">
+</head>
+
+<body>
+<div class="container">
+    <div ng-app="myApp" ng-controller="formCtrl">
+            <!-- CODE TO DISPLAY RECORDS FROM ARRAY -->
+<div ng-show="data.length">
+            <h1 class="h5">List Of Person Details</h1>
+            <!--row 1-->
+            <div class="row">
+                <div class="col">
+                    Sr.No
+                </div>
+                <div class="col">
+                    Full Name
+                </div>
+                <div class="col">
+                    Gender
+                </div>
+                <div class="col">
+                    Hobbies
+                </div>
+                <div class="col">
+                    Qualification
+                </div>
+                <div class="col">
+                    Date
+                </div>
+                <div class="col">
+                    Operations
+                </div>
+            </div>
+
+            <!--row 2-->
+            <div class="row" ng-repeat="person in data">
+                <div class="col">
+                    {{$index + 1}}
+                </div>
+                <div class="col">
+                    {{person.fullName}}
+                </div>
+                <div class="col">
+                    {{person.gender}}
+                </div>
+                <div class="col">
+                    <span ng-repeat="h in testValue=(person.hobbies | filter: {'selected' : true})" >
+                            <div>
+                                {{ h.name }} &nbsp;
+                            </div>
+                        </span>
+
+                    <p ng-show="!testValue.length">No hobbies</p>
+                </div>
+                <div class="col">
+                    {{person.qualification}}
+                </div>
+                <div class="col">
+                    {{ person.today | date :  "dd-MM-yyyy" }}
+                </div>
+                <div class="col">
+                    <a href=#  ng-click="remove($index)"
+                       style="text-decoration: none">
+                        &#128465;Delete
+                    </a> &nbsp;
+                    <a href=#
+                       ng-click="editRec($index)"
+                       style="text-decoration: none">
+                        &#9998;Edit
+                    </a>
+                </div>
+            </div>
+</div>
+<!--END OF HTML CODE TO VIEW REC-->
+
+
+<!-- HTML CODE TO DISPLAY FORM -->
+    <h3 class="h4" ng-show="goEdit">Edit Person Details</h3>
+    <h3 class="h4" ng-show="!goEdit" id="input2">Add Person Details</h3>
+    <div class="px-2 badge badge-success"> {{ info }} </div>
+
+        <form class="form-horizontal" name="Form1">
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="fullName">Full Name:</label>
+                <div class="col-sm-10">
+                    <input class="form-control"
+                           autocomplete="off"
+                           placeholder="Enter Full Name"
+                           pattern="[A-Za-z]*"
+                           type="text"
+                           ng-model="fullName"
+                           name="fullName"
+                           id="fullName"
+                           validator="required, minlength=5"
+                           required-error-message="Full-Name is required and should have min 5 chars."
+                           required-success-message="Your input is valid"
+                    />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="gender">Gender:</label>
+                <div class="col-sm-10" id="gender">
+                    <div class="radio">
+                        <label>
+                            <input name="gender"
+                                   type="radio"
+                                   ng-model="gender.name"
+                                   value="Male">
+                            Male
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input name="gender"
+                                   type="radio"
+                                   ng-model="gender.name"
+                                   value="Female">
+                            Female
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <div class="checkbox" ng-repeat = "a in hobbies">
+                        <label for="{{a.id}}">
+                            <input id={{a.id}}
+                                   type="checkbox"
+                                   ng-model = "a.selected"
+                                   name="hob"
+                            />
+                            {{a.name}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="qualification">Highest Qualification:</label>
+                <div class="col-sm-10">
+                    <select class="form-control"
+                            ng-model="qualification"
+                            validator="required"
+                            required-error-message="Please select Qualification"
+                            required-success-message="Your input is valid"
+                            name="qualification1"
+                            id="qualification">
+
+                        <option value="">Select</option>
+                        <option value="SSC">SSC</option>
+                        <option value="HSC">HSC</option>
+                        <option value="Graduate">Graduate</option>
+                        <option value="Masters">Masters</option>
+
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="date1">Date:</label>
+                <div class="col-sm-10">
+                    <input class="form-control"
+                           type="date"
+                           ng-model="today"
+                           validator="required"
+                           name="date1"
+                           id="date1"
+                           required-error-message="Please Select or Input Valid Date"
+                           required-success-message="Your input is valid">
+                </div>
+            </div>
+
+            <button validation-submit="Form1"
+                    class="btn btn-primary"
+                    ng-click="add_data()"
+                    ng-show="!goEdit"
+                    type="button">
+                Add
+            </button>
+
+            <input type="hidden" ng-model="index" ng-show="goEdit"/>
+
+            <button validation-submit="Form1"
+                    class="btn btn-primary"
+                    ng-click="updateData()"
+                    ng-show="goEdit"
+                    type="button">
+                Edit
+            </button>
+
+        </form>
+  </div>
+    <!--end controller-->
+</div>
+    <!--end container-->
+</body>
+</html>
