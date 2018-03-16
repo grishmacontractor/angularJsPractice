@@ -1,0 +1,17 @@
+.btn-primary {
+  background-color: red !important;
+}
+.col {
+  background-color: lavenderblush;
+  right-margin: 10px;
+  padding: 5px;
+  border-color: blue !important;
+}
+.row {
+  border-color: yellow !important;
+}
+.style,
+.col,
+.row {
+  border: 2px ridge;
+}

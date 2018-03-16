@@ -1,0 +1,24 @@
+@btnColor: red;
+@colBgColor: lavenderblush;
+@colBordColor: blue;
+@rowColor : yellow;
+
+
+.btn-primary {
+     background-color: @btnColor !important;
+}
+.col{
+  &:extend(.style);
+  background-color:@colBgColor;
+  right-margin: 10px;
+  padding: 5px;
+  border-color: @colBordColor !important;
+}
+.row{
+  &:extend(.style);
+  border-color: @rowColor !important;
+}
+
+.style {
+  border:2px ridge;
+}
